@@ -11,6 +11,8 @@ fastify.register(cors, {
   allowedHeaders: ["Content-Type", "Authorization"], // Allowed HTTP headers
 });
 
+fastify.get('/', async (request: FastifyRequest, reply: FastifyReply) => reply.send({ message: 'Hello, World!' }))
+
 fastify.get("/token/:id", async (request: FastifyRequest, reply: FastifyReply) => {
   const tokenId = request.params["id"];
   let bigTokenId;
