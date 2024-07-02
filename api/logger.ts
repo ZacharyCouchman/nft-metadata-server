@@ -17,21 +17,21 @@ const transportsArray: transport[] = [
 ];
 
 //If logging to file is enabled in config.ts, let's output to file, we also want to use a file per day, datePattern dictates the frequency
-transportsArray.push(
-  new DailyRotateFile({
-    filename: "logs/minting-api-backend-%DATE%.log",
-    datePattern: "YYYY-MM-DD",
-    zippedArchive: true,
-    maxSize: "20m",
-    maxFiles: "14d",
-    format: format.combine(
-      format.timestamp({
-        format: "YYYY-MM-DD HH:mm:ss",
-      }),
-      format.printf((info) => `${JSON.stringify({ timestamp: info.timestamp, level: info.level, message: info.message })}`)
-    ),
-  })
-);
+// transportsArray.push(
+//   new DailyRotateFile({
+//     filename: "logs/minting-api-backend-%DATE%.log",
+//     datePattern: "YYYY-MM-DD",
+//     zippedArchive: true,
+//     maxSize: "20m",
+//     maxFiles: "14d",
+//     format: format.combine(
+//       format.timestamp({
+//         format: "YYYY-MM-DD HH:mm:ss",
+//       }),
+//       format.printf((info) => `${JSON.stringify({ timestamp: info.timestamp, level: info.level, message: info.message })}`)
+//     ),
+//   })
+// );
 
 const logger = winston.createLogger({
   level: 'debug',
