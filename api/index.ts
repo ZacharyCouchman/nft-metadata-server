@@ -28,7 +28,7 @@ fastify.get("/token/:id", async (request: FastifyRequest, reply: FastifyReply) =
 
   const remainder = bigTokenId! % BigInt(3);
 
-  if (remainder === BigInt(2)) {
+  if (remainder === BigInt(1)) {
     reply.status(200).send({
       "id": bigTokenId!.toString(),
       "image": "https://zacharycouchman.github.io/nft-project-metadata-immutable/tokens/token1.webp",
@@ -61,7 +61,7 @@ fastify.get("/token/:id", async (request: FastifyRequest, reply: FastifyReply) =
     return;
   }
 
-  if (remainder === BigInt(1)) {
+  if (remainder === BigInt(2)) {
     reply.status(200).send({
       "id": bigTokenId!.toString(),
       "image": "https://zacharycouchman.github.io/nft-project-metadata-immutable/tokens/token2.webp",
