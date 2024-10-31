@@ -22,110 +22,32 @@ fastify.get("/token/:id", async (request: FastifyRequest, reply: FastifyReply) =
     reply.status(400).send({ status: 400, message: 'id must be a number' })
   }
 
-  if (!bigTokenId) {
-    reply.status(500).send({ wrong: 'wrong' });
-  }
-
-  const remainder = bigTokenId! % BigInt(3);
-
-  if (remainder === BigInt(1)) {
-    reply.status(200).send({
-      "id": bigTokenId!.toString(),
-      "image": "https://zacharycouchman.github.io/nft-project-metadata-immutable/tokens/token1.webp",
-      "token_id": bigTokenId!.toString(),
-      "background_color": null,
-      "animation_url": null,
-      "youtube_url": null,
-      "name": "Jeffrey",
-      "description": "Owl",
-      "external_url": null,
-      "attributes": [
-        {
-          "trait_type": "Eyesight",
-          "value": 10
-        },
-        {
-          "trait_type": "Flying",
-          "value": 8
-        },
-        {
-          "trait_type": "Nocturnal",
-          "value": true
-        },
-        {
-          "trait_type": "Peck",
-          "value": 5
-        }
-      ]
-    })
-    return;
-  }
-
-  if (remainder === BigInt(2)) {
-    reply.status(200).send({
-      "id": bigTokenId!.toString(),
-      "image": "https://zacharycouchman.github.io/nft-project-metadata-immutable/tokens/token2.webp",
-      "token_id": bigTokenId!.toString(),
-      "background_color": null,
-      "animation_url": null,
-      "youtube_url": null,
-      "name": "Mike",
-      "description": "Rooster",
-      "external_url": null,
-      "attributes": [
-        {
-          "trait_type": "Eyesight",
-          "value": 4
-        },
-        {
-          "trait_type": "Flying",
-          "value": 2
-        },
-        {
-          "trait_type": "Nocturnal",
-          "value": false
-        },
-        {
-          "trait_type": "Peck",
-          "value": 10
-        }
-      ]
-    })
-    return;
-  }
-
-  if (remainder === BigInt(0)) {
-    reply.status(200).send({
-      "id": bigTokenId!.toString(),
-      "image": "https://zacharycouchman.github.io/nft-project-metadata-immutable/tokens/token3.webp",
-      "token_id": bigTokenId!.toString(),
-      "background_color": null,
-      "animation_url": null,
-      "youtube_url": null,
-      "name": "Gary",
-      "description": "Eagle",
-      "external_url": null,
-      "attributes": [
-        {
-          "trait_type": "Eyesight",
-          "value": 10
-        },
-        {
-          "trait_type": "Flying",
-          "value": 10
-        },
-        {
-          "trait_type": "Nocturnal",
-          "value": false
-        },
-        {
-          "trait_type": "Peck",
-          "value": 7
-        }
-      ]
-    })
-    return;
-  }
+  reply.status(200).send({
+    "id": bigTokenId!.toString(),
+    "image": "https://zacharycouchman.github.io/1155-crafting-metadata/721-tokens/goldaxe.jpg",
+    "token_id": bigTokenId!.toString(),
+    "background_color": null,
+    "animation_url": null,
+    "youtube_url": null,
+    "name": "Gold plated axe",
+    "description": "Rare axe with gold plating",
+    "external_url": null,
+    "attributes": [
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Strength",
+        "value": 10
+      },
+      {
+        "trait_type": "Shine",
+        "value": 10
+      }
+    ]
+  })
+  return;
 })
 
 // Start the server
