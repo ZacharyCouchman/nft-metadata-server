@@ -1,6 +1,9 @@
 import Fastify, { FastifyReply, FastifyRequest } from 'fastify';
 import cors from '@fastify/cors';
+import fastifyStatic from '@fastify/static';
 import logger from './logger'
+import path from "node:path"
+
 // Initialize Fastify instance
 const fastify = Fastify();
 
@@ -8,10 +11,24 @@ const fastify = Fastify();
 fastify.register(cors, {
   origin: "*", // Allow all origins
   methods: ["GET"], // Supported HTTP methods
-  allowedHeaders: ["Content-Type", "Authorization"], // Allowed HTTP headers
+  allowedHeaders: ["Content-Type", "Authorization", "Accept-Type"], // Allowed HTTP headers
 });
 
-fastify.get('/', async (request: FastifyRequest, reply: FastifyReply) => reply.send({ message: 'Hello, World!' }))
+fastify.register(fastifyStatic, {
+  root: path.join(__dirname, 'public'),
+  prefix: '/public/'
+})
+
+fastify.get('/', async (request: FastifyRequest, reply: FastifyReply) => reply.send(
+  {
+    collection: 'Use route /collection.json for collection metadata',
+    token: 'Use route /token/:id for token metadata'
+  }
+));
+
+fastify.get('/collection.json', function (req, reply) {
+  reply.sendFile('collection.json') // serving path.join(__dirname, 'public', 'myHtml.html') directly
+})
 
 fastify.get("/token/:id", async (request: FastifyRequest, reply: FastifyReply) => {
   const tokenId = request.params["id"];
@@ -19,12 +36,17 @@ fastify.get("/token/:id", async (request: FastifyRequest, reply: FastifyReply) =
   try {
     bigTokenId = BigInt(tokenId);
   } catch (err) {
-    reply.status(400).send({ status: 400, message: 'id must be a number' })
+    reply.status(400).send({ status: 400, message: 'id must be numeric' })
   }
 
   if (!bigTokenId) {
-    reply.status(500).send({ wrong: 'wrong' });
+    reply.status(500).send({ message: 'Please specify a numeric token id in the URL /token/:id' });
   }
+
+
+  /**
+   * Example metadata served for tokens here. Every 3rd NFT will have the same metadata.
+   */
 
   const remainder = bigTokenId! % BigInt(3);
 
