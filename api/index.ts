@@ -26,6 +26,129 @@ fastify.get('/', async (request: FastifyRequest, reply: FastifyReply) => reply.s
   }
 ));
 
+fastify.get('/battlepass/collection.json', function (req, reply) {
+  reply.sendFile('/battlepass/collection.json') // serving path.join(__dirname, 'public', 'myHtml.html') directly
+})
+
+fastify.get('/battlepass/token/:id', function (request: FastifyRequest, reply: FastifyReply) {
+  const tokenId = request.params["id"];
+  let bigTokenId;
+  try {
+    bigTokenId = BigInt(tokenId);
+  } catch (err) {
+    reply.status(400).send({ status: 400, message: 'id must be numeric' })
+  }
+
+  if (!bigTokenId) {
+    reply.status(500).send({ message: 'Please specify a numeric token id in the URL /token/:id' });
+    return;
+  }
+
+  reply.status(200).send({
+    "id": bigTokenId!.toString(),
+    "image": "https://zacharycouchman.github.io/nft-project-metadata-immutable/battlepass/battlepass.png",
+    "token_id": bigTokenId!.toString(),
+    "background_color": null,
+    "animation_url": null,
+    "youtube_url": null,
+    "name": "Epic Battle Pass",
+    "description": "An Epic Battle Pass",
+    "external_url": null,
+    "attributes": [
+      {
+        "trait_type": "Rarity",
+        "value": "Epic"
+      }
+    ]
+  });
+  return;
+});
+
+fastify.get('/core/collection.json', function (req, reply) {
+  reply.sendFile('/core/collection.json') // serving path.join(__dirname, 'public', 'myHtml.html') directly
+})
+
+fastify.get('/core/token/:id', function (request: FastifyRequest, reply: FastifyReply) {
+  const tokenId = request.params["id"];
+  let bigTokenId;
+  try {
+    bigTokenId = BigInt(tokenId);
+  } catch (err) {
+    reply.status(400).send({ status: 400, message: 'id must be numeric' })
+  }
+
+  if (!bigTokenId) {
+    reply.status(500).send({ message: 'Please specify a numeric token id in the URL /token/:id' });
+    return;
+  }
+
+  if (bigTokenId >= BigInt(1000000) && bigTokenId < BigInt(2000000)) {
+    reply.status(200).send({
+      "id": bigTokenId!.toString(),
+      "image": "",
+      "token_id": bigTokenId!.toString(),
+      "background_color": null,
+      "animation_url": null,
+      "youtube_url": null,
+      "name": "Rare Core",
+      "description": "A Rare Engine Core",
+      "external_url": null,
+      "attributes": [
+        {
+          "trait_type": "Rarity",
+          "value": "Rare"
+        }
+      ]
+    });
+    return;
+  }
+
+  if (bigTokenId >= BigInt(2000000) && bigTokenId < BigInt(3000000)) {
+    reply.status(200).send({
+      "id": bigTokenId!.toString(),
+      "image": "",
+      "token_id": bigTokenId!.toString(),
+      "background_color": null,
+      "animation_url": null,
+      "youtube_url": null,
+      "name": "Epic Core",
+      "description": "An Epic Engine Core",
+      "external_url": null,
+      "attributes": [
+        {
+          "trait_type": "Rarity",
+          "value": "Epic"
+        }
+      ]
+    });
+    return;
+  }
+
+  if (bigTokenId >= BigInt(3000000) && bigTokenId < BigInt(4000000)) {
+    reply.status(200).send({
+      "id": bigTokenId!.toString(),
+      "image": "",
+      "token_id": bigTokenId!.toString(),
+      "background_color": null,
+      "animation_url": null,
+      "youtube_url": null,
+      "name": "Legendary Core",
+      "description": "A Legendary Engine Core",
+      "external_url": null,
+      "attributes": [
+        {
+          "trait_type": "Rarity",
+          "value": "Legendary"
+        }
+      ]
+    });
+    return;
+  }
+
+  reply.status(200).send({});
+  return;
+})
+
 fastify.get('/collection.json', function (req, reply) {
   reply.sendFile('collection.json') // serving path.join(__dirname, 'public', 'myHtml.html') directly
 })
